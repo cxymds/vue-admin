@@ -1,4 +1,7 @@
 import { createApp } from 'vue'
+
+//引入normolize.css
+import 'normalize.css/normalize.css'
 //引入element UI
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
