@@ -2,14 +2,14 @@
     <div class="el-container">
          <el-tabs v-model="activeName" @tab-click="handleClick" >
             <el-tab-pane label="账号密码登录" name="first">
-                <el-form  status-icon :rules="rules" :model="user"  ref="ruleForm" class="demo-ruleForm" label-position="right">
+                <el-form  status-icon :model="user" :rules="rules"   ref="user" class="demo-ruleForm" label-position="right">
                   <el-form-item  prop="name">
                     <el-input type="text" placeholder="请输入用户名" v-model="user.name"  autocomplete="off"></el-input>
                   </el-form-item>
                   <el-form-item  prop="pass">
                     <el-input type="password" placeholder="请输入密码" v-model="user.pass" autocomplete="off"></el-input>
                   </el-form-item>
-                  <el-form-item prop="yzm" class="yzm" required>
+                  <el-form-item prop="yzm" class="yzm">
                     <el-row>
                        <el-col :span="18"><el-input ></el-input> </el-col>
                        <el-col :span="6"><div>21y38982y</div></el-col>
@@ -62,10 +62,10 @@
           html:`<h1>一级标题</h1>`
         },
         user:{
-          name:'admin',
+          name:'admin123',
           pass:'123456',
-          email:""
         },
+        isSubmit:false,
         id:'nav',
         val:true,
         show:false,
@@ -86,7 +86,24 @@
     },
     methods: {
       submit(){
-        
+        this.$refs['user'].validate((valid) => {
+          if (!valid) {
+            console.log('error submit!!');
+            return false;
+          }
+          this.axios.post('http://localhost:3000/vue/login',this.user).then((data)=>{
+          //id,username,password,create_time,update_time,status 
+          //密码加密  express 实现用户密码加密  crypto  盐值 hdhas
+           if(data.data.code==200){
+             document.cookie = 'token='+data.data.token
+             this.$router.push({name:'About'})
+           }else{
+             alert(data.data.msg)
+           }
+          }).catch((err)=>{
+          
+          })
+        });
       },
       handleClick(tab, event) {
         console.log(tab, event);
