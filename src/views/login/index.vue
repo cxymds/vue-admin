@@ -96,7 +96,14 @@
           //密码加密  express 实现用户密码加密  crypto  盐值 hdhas
            if(data.data.code==200){
              document.cookie = 'token='+data.data.token
-             this.$router.push({name:'About'})
+              this.$message.success({
+                message: '恭喜你，登录成功',
+                type: 'success',
+                duration:1500
+              });
+             setInterval(()=>{
+              this.$router.push({name:'About'})
+             },1500)
            }else{
              alert(data.data.msg)
            }
