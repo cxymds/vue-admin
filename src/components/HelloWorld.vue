@@ -1,20 +1,25 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h4>{{name}}</h4>
+  <div >
+      <el-row v-for="(item,index) in notice" :key="index">
+        <el-col>{{item.name}}</el-col>
+        <el-col>{{item.age}}</el-col>
+      </el-row>
+      <slot></slot>
   </div>
+  <el-button @click="$emit('setNumber',notice.length)">弹出数据</el-button>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
-  },
+  props:['notice'],
   data(){
     return {
-      name:'hello world'
+      count: 0
     }
+  },
+  methods:{
+    
   }
 }
 </script>

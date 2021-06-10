@@ -15,5 +15,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+
+
 //主组件
-createApp(App).use(store).use(router).use(VueAxios, axios).use(ElementPlus).mount('#app')
+let app = createApp(App).use(store).use(router).use(VueAxios, axios).use(ElementPlus);
+//定义组件
+// import hellocom from '@/components/HelloWorld';
+// app.component('hello-world',hellocom)
+
+app.mount('#app');
+
